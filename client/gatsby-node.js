@@ -12,6 +12,12 @@ function getBlogPostPath({ publishedAt, slug }) {
   return `/blog/${dateSegment}/${slug.current}/`;
 }
 
+function getEventPath({ publishedAt, slug }) {
+  const dateSegment = format(new Date(publishedAt), "yyyy/MM");
+
+  return `/blog/${dateSegment}/${slug.current}/`;
+}
+
 exports.createPages = async ({ graphql, actions, reporter }) => {
   const { createPage } = actions;
   const postsResult = await graphql(`
@@ -50,6 +56,43 @@ exports.createPages = async ({ graphql, actions, reporter }) => {
         context: { id },
       });
     });
+
+  const eventsResult = await graphql(`
+    {
+      allSanityEvent(
+        filter: { slug: { current: { ne: null } }, publishedAt: { ne: null } }
+      ) {
+        edges {
+          node {
+            id
+            publishedAt
+            slug {
+              current
+            }
+          }
+        }
+      }
+    }
+  `);
+
+  if (eventsResult.errors) {
+    console.log(eventsResult.errors);
+    reporter.panicOnBuild(`Error while running events GraphQL query.`);
+    return;
+  }
+
+  const eventEdges = (eventsResult.data.allSanityEvent || {}).edges || [];
+
+  eventEdges
+    .filter(edge => !isFuture(new Date(edge.node.publishedAt)))
+    .forEach((edge, index) => {
+      const { id, } = edge.node;
+      createPage({
+        path: getEventPath(edge.node),
+        component: require.resolve("./src/templates/event.tsx"),
+        context: { id,},
+      });
+    });  
 
   const pagesResult = await graphql(`
     {

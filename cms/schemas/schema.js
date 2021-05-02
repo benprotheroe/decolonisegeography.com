@@ -9,6 +9,7 @@ import siteSettings from "./documents/siteSettings";
 import category from "./documents/category";
 import post from "./documents/post";
 import author from "./documents/author";
+import eventOrganiser from "./documents/eventOrganiser";
 import about from "./documents/about";
 import contact from "./documents/contact";
 import menu from "./documents/menu";
@@ -19,6 +20,8 @@ import blockContent from "./objects/blockContent";
 import twitter from "./objects/twitter";
 import youtube from "./objects/youtube";
 import googleDriveVideo from "./objects/googleDriveVideo";
+import event from "./documents/event";
+import blockContentEvents from "./objects/blockContentEvents";
 
 // Then we give our schema to the builder and provide the result to Sanity
 export default createSchema({
@@ -32,12 +35,15 @@ export default createSchema({
     siteSettings,
     post,
     author,
+    eventOrganiser,
     category,
     menu,
     page,
+    event,
     // When added to this list, object types can be used as
     // { type: 'typename' } in other document schemas
     blockContent,
+    blockContentEvents,
     about,
     contact,
     twitter,

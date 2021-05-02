@@ -39,7 +39,7 @@ const serializers = {
   },
 };
 
-interface PortableTextProps {
+export interface PortableTextProps {
   blocks: GatsbyTypes.SanityBlock[];
 }
 const PortableText: React.FC<PortableTextProps> = props => {

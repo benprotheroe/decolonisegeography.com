@@ -1,9 +1,9 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
 
-import { PostTemplateData } from "../templates/post";
+import { EventTemplateData } from "../templates/event";
 import formatDate from "../helpers/format-date";
-import getBlogPostPath from "../helpers/get-blog-post-path";
+import getEventPath from "../helpers/get-event-path";
 import PortableText from "./portable-text";
 import TwitterIcon from "./twitter-icon";
 import { H1, Subtitle } from "./typography";
@@ -29,13 +29,13 @@ const PublishedAt = styled.span`
 
 const SocialLink = styled.a``;
 
-interface PostProps extends PostTemplateData {
+interface EventProps extends EventTemplateData {
   siteSettings: SiteSettings;
 }
 
-const Post: React.FC<PostProps> = props => {
-  const { post, siteSettings } = props;
-  console.log(post)
+const Event: React.FC<EventProps> = props => {
+  const { event, siteSettings } = props;
+  console.log(event)
 
   const { siteUrl } = siteSettings;
 
@@ -47,7 +47,7 @@ const Post: React.FC<PostProps> = props => {
     mainImage,
     publishedAt,
     slug,
-  } = post;
+  } = event;
 
   return (
     <PostArticle>
@@ -106,7 +106,7 @@ const Post: React.FC<PostProps> = props => {
           </span>
           <SocialLink
             // TODO: add author data to the tweet text
-            href={`https://twitter.com/share?url=${siteUrl}${getBlogPostPath({
+            href={`https://twitter.com/share?url=${siteUrl}${getEventPath({
               publishedAt,
               slug,
             })}&text=${title}:`}
@@ -136,4 +136,4 @@ const Post: React.FC<PostProps> = props => {
   );
 };
 
-export default Post;
+export default Event;

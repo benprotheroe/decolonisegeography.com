@@ -126,7 +126,7 @@ const IndexPage: React.FC<IndexPageProps> = props => {
         node: PostNode;
       }[][]
     );
-
+console.log(rows);
   const postPreviewProps = useCallback(
     (node: PostNode) => ({
       key: `index__PostPreview__post:${node.id}`,

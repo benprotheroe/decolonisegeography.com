@@ -142,6 +142,7 @@ const Nav: React.FC = () => {
             </NavLink>
           ))}
           <NavLink to="/about">About</NavLink>
+          <NavLink to="/events">Events</NavLink>
           <NavLink to="/contact">Contact</NavLink>
         </NavInnerWrapper>
       </NavOuterWrapper>
