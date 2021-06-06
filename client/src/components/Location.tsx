@@ -1,5 +1,4 @@
 import React from "React";
-import useQuery from "react-query";
 import styled from "styled-components";
 
 interface LocationProps {
@@ -7,26 +6,22 @@ interface LocationProps {
     lng:number;
 }
 
-const LocationTag: React.FC<LocationProps> = props =>{
-    const {data} = useQuery('location',fetchAddress);
-    const API_key = "AIzaSyDr2MOTyBtCxIjhkAMJSfa-KwN6eBrkEhI";
-    const {lng, lat} = props;
-
-    
-async function fetchAddress(){
-    const res = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${API_key}`);
-    const data = await res.json();
-    console.log(data);
-    return data;
+const LocationTag: React.FC<LocationProps> = (props) =>{
+     const API_key = "AIzaSyDr2MOTyBtCxIjhkAMJSfa-KwN6eBrkEhI";
+     const {lng, lat} = props;
+     
+    const address = ()=>{
+        fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${API_key}`)
+    .then(res=>res.json())
+    .then(data=>console.log(data.results[1].formatted_address))
+    .then(data=>{return data.results[1].formatted_address});
 }
 
-console.log(data);
+fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${API_key}`)
+    .then(res=>res.json())
+    .then(data=>console.log(data.results[1].formatted_address))
 
-
-
-
-    
-    return (<p>address</p>)
+    return (<p>{address()}</p>)
 
 }
 

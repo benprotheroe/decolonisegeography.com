@@ -219,7 +219,7 @@ console.log(typeof  Object.keys(rows)[0])
                 
                 <EventPreviewsRow key={`events__EventPreview__event:${row.node}`}>
                   <EventPreview {...eventPreviewProps(event.node)} variant="full" />
-                  <LocationTag lat={event?.node?.location?.lat} lng={event?.node?.location?.lng}/>
+                  {/* <LocationTag lat={event?.node?.location?.lat} lng={event?.node?.location?.lng}/> */}
                   <PortableText blocks={event.node._rawLink}/>
                 </EventPreviewsRow>
                 
